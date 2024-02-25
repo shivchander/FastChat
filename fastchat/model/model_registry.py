@@ -656,3 +656,10 @@ register_model_info(
     "https://github.com/haotian-liu/LLaVA",
     "an open large language and vision assistant",
 )
+
+register_model_info(
+    ["labradorite-13b"],
+    "Labradorite",
+    "https://huggingface.co/ibm/labradorite-13b",
+    "A large language model developed by IBM Research",
+)
