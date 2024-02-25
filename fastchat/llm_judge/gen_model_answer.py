@@ -50,13 +50,14 @@ def run_eval(
 
     chunk_size = len(questions) // (num_gpus_total // num_gpus_per_model)
     ans_handles = []
-    for i in range(0, len(questions), chunk_size):
+    for ( idx, i ) in enumerate( range(0, len(questions), chunk_size) ):
         ans_handles.append(
             get_answers_func(
                 model_path,
                 model_id,
                 questions[i : i + chunk_size],
                 answer_file,
+                idx,
                 max_new_token,
                 num_choices,
                 num_gpus_per_model,
@@ -69,6 +70,13 @@ def run_eval(
     if use_ray:
         ray.get(ans_handles)
 
+    return questions, len(ans_handles)
+
+def make_ith_fn(answer_file, i):
+    answer_file_lst = answer_file.split(".")
+    answer_file_lst[0] += f"-{i}"
+    answer_file_i = ".".join(answer_file_lst)
+    return answer_file_i
 
 @torch.inference_mode()
 def get_model_answers(
@@ -76,6 +84,7 @@ def get_model_answers(
     model_id,
     questions,
     answer_file,
+    idx,
     max_new_token,
     num_choices,
     num_gpus_per_model,
@@ -178,8 +187,9 @@ def get_model_answers(
             choices.append({"index": i, "turns": turns})
 
         # Dump answers
-        os.makedirs(os.path.dirname(answer_file), exist_ok=True)
-        with open(os.path.expanduser(answer_file), "a") as fout:
+        answer_file_i = make_ith_fn(answer_file, idx)
+        os.makedirs(os.path.dirname(answer_file_i), exist_ok=True)
+        with open(os.path.expanduser(answer_file_i), "a") as fout:
             ans_json = {
                 "question_id": question["question_id"],
                 "answer_id": shortuuid.uuid(),
@@ -190,13 +200,15 @@ def get_model_answers(
             fout.write(json.dumps(ans_json) + "\n")
 
 
-def reorg_answer_file(answer_file):
+def reorg_answer_file(answer_file, questions, num_runs):
     """Sort by question id and de-duplication"""
     answers = {}
-    with open(answer_file, "r") as fin:
-        for l in fin:
-            qid = json.loads(l)["question_id"]
-            answers[qid] = l
+    for i in range(num_runs):
+        answer_file_i = make_ith_fn(answer_file, i)
+        with open(answer_file_i, "r") as fin:
+            for l in fin:
+                qid = json.loads(l)["question_id"]
+                answers[qid] = l
 
     qids = sorted(list(answers.keys()))
     with open(answer_file, "w") as fout:
@@ -285,7 +297,7 @@ if __name__ == "__main__":
 
     print(f"Output to {answer_file}")
 
-    run_eval(
+    questions, num_runs =run_eval(
         model_path=args.model_path,
         model_id=args.model_id,
         question_file=question_file,
@@ -301,4 +313,4 @@ if __name__ == "__main__":
         revision=args.revision,
     )
 
-    reorg_answer_file(answer_file)
+    reorg_answer_file(answer_file, questions, num_runs)
