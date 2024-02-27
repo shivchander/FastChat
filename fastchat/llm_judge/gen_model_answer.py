@@ -134,7 +134,7 @@ def get_model_answers(
                         do_sample=do_sample,
                         temperature=temperature,
                         max_new_tokens=max_new_token,
-                        repetition_penalty=1.05
+                        repetition_penalty=1.2
                     )
                     if model.config.is_encoder_decoder:
                         output_ids = output_ids[0]
