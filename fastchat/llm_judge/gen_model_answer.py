@@ -133,8 +133,7 @@ def get_model_answers(
                         torch.as_tensor(input_ids).cuda(),
                         do_sample=do_sample,
                         temperature=temperature,
-                        max_new_tokens=max_new_token,
-                        repetition_penalty=1.05,    
+                        max_new_tokens=max_new_token,  
                     )
                     if model.config.is_encoder_decoder:
                         output_ids = output_ids[0]
