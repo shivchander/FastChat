@@ -2262,10 +2262,18 @@ class LabradoriteAdapter(BaseModelAdapter):
     """The model adapter for ibm/labradorite-13b"""
 
     def match(self, model_path: str):
-        return "labradorite" in model_path.lower()
+        return "labradorite" in model_path.lower() or "malachite" in model_path.lower()
     
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("labradorite")
+
+class IBMGenericAdapter(BaseModelAdapter):
+    def match(self, model_path: str):
+        return "ibm-generic" in model_path.lower()
+    
+    def get_default_conv_template(self, model_path: str) -> Conversation:
+        return get_conv_template("ibm-generic")
+
 
 
 
@@ -2359,6 +2367,7 @@ register_model_adapter(SteerLMAdapter)
 register_model_adapter(LlavaAdapter)
 register_model_adapter(YuanAdapter)
 register_model_adapter(LabradoriteAdapter)
+register_model_adapter(IBMGenericAdapter)
 
 # After all adapters, try the default base adapter.
 register_model_adapter(BaseModelAdapter)
