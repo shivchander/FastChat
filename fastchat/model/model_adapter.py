@@ -2272,8 +2272,9 @@ class MerliniteAdapter(BaseModelAdapter):
     """The model adapter for ibm/malachite-13b"""
 
     def match(self, model_path: str):
-        print(model_path)
-        print('Matched with Merlinite')
+        match_test = "merlinite" in model_path.lower()
+        print(model_path.lower())
+        print(f"Match test: {match_test}")
         return "merlinite" in model_path.lower()
     
     def get_default_conv_template(self, model_path: str) -> Conversation:
