@@ -360,7 +360,7 @@ def generate_stream(
     output_ids = model.generate(
         torch.as_tensor(input_ids).to(model.device),
         do_sample=do_sample,
-        repetition_penalty=1.05,
+        repetition_penalty=1.0,
         temperature=params["temperature"],
         max_new_tokens=params["max_new_tokens"],
         stopping_criteria=stopping_criteria,
