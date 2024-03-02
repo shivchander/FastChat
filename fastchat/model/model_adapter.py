@@ -2268,6 +2268,14 @@ class LabradoriteAdapter(BaseModelAdapter):
         return get_conv_template("labradorite")
 
 
+class MerliniteAdapter(BaseModelAdapter):
+
+    def match(self, model_path: str):
+        return "merlinite" in model_path.lower()
+    
+    def get_default_conv_template(self, model_path: str) -> Conversation:
+        return get_conv_template("merlinite")
+
 
 # Note: the registration order matters.
 # The one registered earlier has a higher matching priority.
