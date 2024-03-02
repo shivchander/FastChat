@@ -2277,7 +2277,7 @@ class MerliniteAdapter(BaseModelAdapter):
         return "merlinite" in model_path.lower()
     
     def get_default_conv_template(self, model_path: str) -> Conversation:
-        return get_conv_template("malachite")
+        return get_conv_template("merlinite")
 
 
 # Note: the registration order matters.
