@@ -32,6 +32,7 @@ def run_eval(
     max_gpu_memory,
     dtype,
     revision,
+repetition_penalty
 ):
     questions = load_questions(question_file, question_begin, question_end)
     # random shuffle the questions to balance the loading
@@ -63,6 +64,7 @@ def run_eval(
                 max_gpu_memory,
                 dtype=dtype,
                 revision=revision,
+                repetition_penalty=repetition_penalty
             )
         )
 
@@ -82,6 +84,7 @@ def get_model_answers(
     max_gpu_memory,
     dtype,
     revision,
+repetition_penalty
 ):
     model, tokenizer = load_model(
         model_path,
@@ -125,6 +128,7 @@ def get_model_answers(
                         do_sample=do_sample,
                         temperature=temperature,
                         max_new_tokens=max_new_token,
+                        repetition_penalty=repetition_penalty
                     )
                     if model.config.is_encoder_decoder:
                         output_ids = output_ids[0]
@@ -269,6 +273,13 @@ if __name__ == "__main__":
         default="main",
         help="The model revision to load.",
     )
+    parser.add_argument(
+        "--repetition_penalty",
+        type=float,
+        default=1.0,
+        help="repetition_penalty for generation.",
+    )
+
 
     args = parser.parse_args()
 
@@ -299,6 +310,7 @@ if __name__ == "__main__":
         max_gpu_memory=args.max_gpu_memory,
         dtype=str_to_torch_dtype(args.dtype),
         revision=args.revision,
+        repetition_penalty=args.repetition_penalty
     )
 
     reorg_answer_file(answer_file)
