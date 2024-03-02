@@ -277,7 +277,7 @@ if __name__ == "__main__":
         help="The model revision to load.",
     )
     parser.add_argument(
-        "--repetition_penalty",
+        "--repetition-penalty",
         type=float,
         default=1.0,
         help="repetition_penalty for generation.",
