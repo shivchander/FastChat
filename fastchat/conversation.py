@@ -1598,7 +1598,7 @@ register_conv_template(
 # https://huggingface.co/ibm/merlinite-7b
 register_conv_template(
     Conversation(
-        name="merlinite-7b",
+        name="merlinite",
         system_template="<|system|>\n{system_message}",
         system_message="""You are an AI language model developed by IBM Research. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior.""",
         roles=("<|user|>", "<|assistant|>"),

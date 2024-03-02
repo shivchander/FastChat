@@ -2272,7 +2272,7 @@ class MerliniteAdapter(BaseModelAdapter):
     """The model adapter for ibm/malachite-13b"""
 
     def match(self, model_path: str):
-        return "malachite" in model_path.lower()
+        return "merlinite" in model_path.lower()
     
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("malachite")
