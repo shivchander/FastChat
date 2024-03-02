@@ -2272,6 +2272,8 @@ class MerliniteAdapter(BaseModelAdapter):
     """The model adapter for ibm/malachite-13b"""
 
     def match(self, model_path: str):
+        print(model_path)
+        print('Matched with Merlinite')
         return "merlinite" in model_path.lower()
     
     def get_default_conv_template(self, model_path: str) -> Conversation:
@@ -2280,6 +2282,8 @@ class MerliniteAdapter(BaseModelAdapter):
 
 # Note: the registration order matters.
 # The one registered earlier has a higher matching priority.
+register_model_adapter(LabradoriteAdapter)
+register_model_adapter(MerliniteAdapter)
 register_model_adapter(PeftModelAdapter)
 register_model_adapter(StableVicunaAdapter)
 register_model_adapter(VicunaAdapter)
@@ -2367,8 +2371,6 @@ register_model_adapter(SolarAdapter)
 register_model_adapter(SteerLMAdapter)
 register_model_adapter(LlavaAdapter)
 register_model_adapter(YuanAdapter)
-register_model_adapter(LabradoriteAdapter)
-register_model_adapter(MerliniteAdapter)
 
 # After all adapters, try the default base adapter.
 register_model_adapter(BaseModelAdapter)
