@@ -120,6 +120,9 @@ def get_model_answers(
                 conv.append_message(conv.roles[0], qs)
                 conv.append_message(conv.roles[1], None)
                 prompt = conv.get_prompt()
+
+                if i == 0:
+                    print(f"Prompt {i}: {prompt}")
                 input_ids = tokenizer([prompt]).input_ids
 
                 if temperature < 1e-4:
