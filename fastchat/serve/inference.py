@@ -355,8 +355,8 @@ def generate_stream(
         do_sample = False
     else:
         do_sample = True
-    print(f"{do_sample=}")
-
+    print(f"{do_sample=}  {stopping_criteria=} ")
+    
     output_ids = model.generate(
         torch.as_tensor(input_ids).to(model.device),
         do_sample=do_sample,
@@ -373,7 +373,7 @@ def generate_stream(
     output = tokenizer.decode(
         output_ids,
         spaces_between_special_tokens=False,
-    )
+    ).replace('<|endoftext|>', '')
     print(f"{output=}")
 
     yield {
