@@ -1595,12 +1595,12 @@ register_conv_template(
 
 
 # ibm/malachite-7b template
-# https://huggingface.co/ibm/malachite-13b
+# https://huggingface.co/ibm/merlinite-7b
 register_conv_template(
     Conversation(
-        name="malachite",
+        name="merlinite-7b",
         system_template="<|system|>\n{system_message}",
-        system_message="""You are Labrador, an AI language model developed by IBM DMF (Data Model Factory) Alignment Team. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior.""",
+        system_message="""You are an AI language model developed by IBM Research. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior.""",
         roles=("<|user|>", "<|assistant|>"),
         sep_style=SeparatorStyle.ADD_NEW_LINE_SINGLE,
         sep="\n",
