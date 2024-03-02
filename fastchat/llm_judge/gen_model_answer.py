@@ -16,7 +16,7 @@ from tqdm import tqdm
 from fastchat.llm_judge.common import load_questions, temperature_config
 from fastchat.model import load_model, get_conversation_template
 from fastchat.utils import str_to_torch_dtype
-
+import random
 
 def run_eval(
     model_path,
@@ -175,7 +175,10 @@ repetition_penalty
                 except RuntimeError as e:
                     print("ERROR question ID: ", question["question_id"])
                     output = "ERROR"
-
+                if random.uniform(0, 1) < 0.1:
+                    print("**Random Prompt-Output **")
+                    print(prompt)
+                    print(output)
                 conv.update_last_message(output)
                 turns.append(output)
 
