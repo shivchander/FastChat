@@ -2269,7 +2269,9 @@ class LabradoriteAdapter(BaseModelAdapter):
 
 class IBMGenericAdapter(BaseModelAdapter):
     def match(self, model_path: str):
-        return "ibm-generic" in model_path.lower()
+        status = "ibm-generic" in model_path.lower()
+        print(f"Matching status of {model_path} with IBM Generic {status}")
+        return "ibm-generic" in model_path.lower() or 'merlenite' in model_path.lower()
     
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("ibm-generic")
