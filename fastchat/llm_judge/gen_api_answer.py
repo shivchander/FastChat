@@ -38,7 +38,7 @@ def get_answer(
         temperature = temperature_config[question["category"]]
     else:
         temperature = 0.7
-
+    print(temperature, question["category"])
     choices = []
     chat_state = None  # for palm-2 model
     for i in range(num_choices):
@@ -48,7 +48,7 @@ def get_answer(
         for j in range(len(question["turns"])):
             conv.append_message(conv.roles[0], question["turns"][j])
             conv.append_message(conv.roles[1], None)
-
+            print(conv)
             if model in ANTHROPIC_MODEL_LIST:
                 output = chat_completion_anthropic(model, conv, temperature, max_tokens)
             elif model == "palm-2-chat-bison-001":
