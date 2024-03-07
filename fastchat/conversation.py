@@ -1605,6 +1605,18 @@ register_conv_template(
     )
 )
 
+# Granite chat template
+register_conv_template(
+    Conversation(
+        name="granite-chat",
+        system_template="<|system|>\n{system_message}",
+        system_message="You are Granite Chat, an AI language model developed by IBM. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior.",
+        roles=("<|user|>", "<|assistant|>"),
+        sep_style=SeparatorStyle.ADD_NEW_LINE_SINGLE,
+        sep="\n",
+        stop_str="<|endoftext|>",
+    )
+)
 
 if __name__ == "__main__":
     from fastchat.conversation import get_conv_template
