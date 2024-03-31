@@ -43,7 +43,7 @@ from fastchat.modules.exllama import ExllamaConfig, load_exllama_model
 from fastchat.modules.xfastertransformer import load_xft_model, XftConfig
 from fastchat.modules.gptq import GptqConfig, load_gptq_quantized
 from fastchat.utils import get_gpu_memory
-
+import ibm_models
 # Check an environment variable to check if we should be sharing Peft model
 # weights.  When false we treat all Peft models as separate.
 peft_share_base_weights = (
@@ -2263,7 +2263,7 @@ class LabradoriteAdapter(BaseModelAdapter):
 
     def match(self, model_path: str):
         return "labradorite" in model_path.lower() or "malachite" in model_path.lower()
-    
+
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("labradorite")
 
@@ -2272,7 +2272,7 @@ class IBMGenericAdapter(BaseModelAdapter):
         status = "ibm-generic" in model_path.lower()
         print(f"Matching status of {model_path} with IBM Generic {status}")
         return "ibm-generic" in model_path.lower() or 'merlinite' in model_path.lower() or 'epoch_7_step_115200' in model_path.lower()
-    
+
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("ibm-generic")
 
