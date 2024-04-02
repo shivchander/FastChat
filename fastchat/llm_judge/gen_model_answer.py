@@ -17,7 +17,6 @@ from fastchat.llm_judge.common import load_questions, temperature_config
 from fastchat.model import load_model, get_conversation_template
 from fastchat.utils import str_to_torch_dtype
 import random
-import random
 def run_eval(
     model_path,
     model_id,
@@ -130,14 +129,6 @@ repetition_penalty
                         max_new_tokens=max_new_token,
                         repetition_penalty=repetition_penalty
                     )
-                    if random.uniform(0, 1) < 0.1:
-                        response = tokenizer.decode(
-                            output_ids[0],
-                            spaces_between_special_tokens=False,
-                        )
-                        print("**Model Generation**")
-                        print(response)
-                        print("*****")
                     if model.config.is_encoder_decoder:
                         output_ids = output_ids[0]
                     else:
