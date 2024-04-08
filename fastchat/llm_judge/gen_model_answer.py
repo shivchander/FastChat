@@ -148,6 +148,19 @@ repetition_penalty
                         output_ids,
                         spaces_between_special_tokens=False,
                     )
+                    og_output = output
+                    if '[Answer]' in output:
+                        output = output[output.index('[Answer]'):]
+                    elif '[/Plan]' in output:
+                        output = output[output.index('[/Plan]'):]
+                    output = output.replace('[Answer]', '').replace('[/Plan]', '').replace('[/Answer]', '')
+                    if random.uniform(0, 1) < 0.1:
+                        print("**Random Prompt-Output **")
+                        print(prompt)
+                        print(og_output)
+                        print("---")
+                        print(output)
+
                     if conv.stop_str and isinstance(conv.stop_str, list):
                         stop_str_indices = sorted(
                             [
@@ -174,10 +187,6 @@ repetition_penalty
                 except RuntimeError as e:
                     print("ERROR question ID: ", question["question_id"])
                     output = "ERROR"
-                if random.uniform(0, 1) < 0.1:
-                    print("**Random Prompt-Output **")
-                    print(prompt)
-                    print(output)
                 conv.update_last_message(output)
                 turns.append(output)
 
