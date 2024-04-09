@@ -153,11 +153,11 @@ repetition_penalty
                         spaces_between_special_tokens=False,
                     )
                     og_output = output
-                    if '[Answer]' in output:
-                        output = output[output.index('[Answer]'):]
+                    if 'Answer:' in output:
+                        output = output[output.index('Answer:'):]
                     elif '[/Plan]' in output:
                         output = output[output.index('[/Plan]'):]
-                    output = output.replace('[Answer]', '').replace('[/Plan]', '').replace('[/Answer]', '')
+                    output = output.replace('Answer:', '').replace('[/Plan]', '') #.replace('[/Answer]', '')
                     if random.uniform(0, 1) < 0.1:
                         print("**Random Prompt-Output **")
                         print(prompt)
