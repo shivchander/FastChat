@@ -648,6 +648,7 @@ class PeftModelAdapter:
                 model = PeftModel.from_pretrained(
                     base_model, model_path, adapter_name=model_path
                 )
+                model = model.merge_and_unload()
                 peft_model_cache[base_model_path] = (model, tokenizer)
             return model, tokenizer
 
