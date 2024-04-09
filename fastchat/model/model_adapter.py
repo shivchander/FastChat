@@ -2274,6 +2274,7 @@ class IBMGenericAdapter(BaseModelAdapter):
         return "ibm-generic" in model_path.lower() or 'merlinite' in model_path.lower() or 'epoch_7_step_115200' in model_path.lower()
 
     def get_default_conv_template(self, model_path: str) -> Conversation:
+        print(f"IBM-Generic adapter selected")
         return get_conv_template("ibm-generic")
 
 
