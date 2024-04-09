@@ -116,7 +116,7 @@ repetition_penalty
                 conv.append_message(conv.roles[1], None)
                 prompt = conv.get_prompt()
                 if question["category"] == ['coding', 'extraction', 'reasoning', 'roleplay']:
-                    prompt = prompt.replace('When responding always give me a plan first followed by the answer.', '')
+                    prompt = prompt.replace('When responding always give me a plan first enclosed in [Plan]...[/Plan] followed by your answer that starts with `Answer:` tag', '')
                 input_ids = tokenizer([prompt]).input_ids
 
                 if temperature < 1e-4:
