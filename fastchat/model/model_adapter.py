@@ -649,6 +649,7 @@ class PeftModelAdapter:
                     base_model, model_path, adapter_name=model_path
                 )
                 peft_model_cache[base_model_path] = (model, tokenizer)
+            model = model.merge_and_unload()
             return model, tokenizer
 
         # In the normal case, load up the base model weights again.
