@@ -96,6 +96,8 @@ repetition_penalty
         cpu_offloading=False,
         debug=False,
     )
+    print(model)
+    model = model.merge_and_unload()
 
     for question in tqdm(questions):
         if question["category"] in temperature_config:
