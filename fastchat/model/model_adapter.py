@@ -657,6 +657,7 @@ class PeftModelAdapter:
             base_model_path, from_pretrained_kwargs
         )
         model = PeftModel.from_pretrained(base_model, model_path)
+        model = model.merge_and_unload()
         return model, tokenizer
 
     def get_default_conv_template(self, model_path: str) -> Conversation:
