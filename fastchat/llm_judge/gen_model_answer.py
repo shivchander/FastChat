@@ -160,7 +160,10 @@ repetition_penalty
                             output = output[: stop_str_indices[0]]
                     elif conv.stop_str and output.find(conv.stop_str) > 0:
                         output = output[: output.find(conv.stop_str)]
-
+                    if '[/Plan]' in output:
+                        output = output[output.find('[/Plan]'):].replace('[/Plan]', '')
+                    if ['Answer'] in output:
+                        output = output[output.rfind(['Answer']):].replace('[Answer]', '')
                     for special_token in tokenizer.special_tokens_map.values():
                         if isinstance(special_token, list):
                             for special_tok in special_token:
