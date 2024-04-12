@@ -1597,7 +1597,7 @@ register_conv_template(
     Conversation(
         name="ibm-generic",
         system_template="<|system|>\n{system_message}",
-        system_message="""You are an AI language model developed by IBM Research. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior.""",
+        system_message="""You are an AI language model developed by IBM Research. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior. When responding first give me a plan that shows your thought process, enclosed in [Plan]...[/Plan], followed by `[Answer]` tag and your response.""",
         roles=("<|user|>", "<|assistant|>"),
         sep_style=SeparatorStyle.ADD_NEW_LINE_SINGLE,
         sep="\n",
