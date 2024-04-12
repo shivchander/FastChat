@@ -374,12 +374,12 @@ def generate_stream(
         output_ids,
         spaces_between_special_tokens=False,
     ) #.replace('<|endoftext|>', '')
-    for special_token in tokenizer.special_tokens_map.values():
-        if isinstance(special_token, list):
-            for special_tok in special_token:
-                output = output.replace(special_tok, "")
-        else:
-            output = output.replace(special_token, "")
+    # for special_token in tokenizer.special_tokens_map.values():
+    #     if isinstance(special_token, list):
+    #         for special_tok in special_token:
+    #             output = output.replace(special_tok, "")
+    #     else:
+    #         output = output.replace(special_token, "")
     output = output.strip()
     print(f"{output=}")
 
