@@ -117,6 +117,9 @@ repetition_penalty
                     old_sys = "You are an AI language model developed by IBM Research. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior."
                     new_sys = "You are an AI language model developed by IBM Research. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior. When responding first give me a plan that shows your thought process, enclosed in [Plan]...[/Plan], followed by `[Answer]` tag and your response."
                     prompt = prompt.replace(old_sys, new_sys)
+                    if random.uniform(0, 1) < 0.5:
+                        print("**Reasoning Prompt**")
+                        print(prompt)
                 input_ids = tokenizer([prompt]).input_ids
 
                 if temperature < 1e-4:
