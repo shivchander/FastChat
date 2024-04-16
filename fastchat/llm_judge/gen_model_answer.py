@@ -113,6 +113,10 @@ repetition_penalty
                 conv.append_message(conv.roles[0], qs)
                 conv.append_message(conv.roles[1], None)
                 prompt = conv.get_prompt()
+                if question["category"] == "reasoning":
+                    old_sys = "You are an AI language model developed by IBM Research. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior."
+                    new_sys = "You are an AI language model developed by IBM Research. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior. When responding first give me a plan that shows your thought process, enclosed in [Plan]...[/Plan], followed by `[Answer]` tag and your response."
+                    prompt = prompt.replace(old_sys, new_sys)
                 input_ids = tokenizer([prompt]).input_ids
 
                 if temperature < 1e-4:
